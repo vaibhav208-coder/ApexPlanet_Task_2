@@ -1,4 +1,13 @@
 <?php
+// 1. Start the session at the very top so we can auto-login later!
+session_start();
+
+// If they are somehow already logged in, push them to the dashboard
+if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
+    header("location: dashboard.php");
+    exit;
+}
+
 require_once "config.php";
 
 $username = $password = $confirm_password = "";
@@ -61,8 +70,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $param_password = password_hash($password, PASSWORD_DEFAULT);
             
             if ($stmt->execute()) {
-                header("location: login.php");
+                
+                // 2. AUTO-LOGIN MAGIC HAPPENS HERE
+                // Grab the ID that MySQL just auto-generated for this new user
+                $new_user_id = $pdo->lastInsertId();
+                
+                // Populate the session state exactly like login.php does
+                $_SESSION["loggedin"] = true;
+                $_SESSION["id"] = $new_user_id;
+                $_SESSION["username"] = $username;
+                
+                // Route directly to the dashboard!
+                header("location: dashboard.php");
                 exit();
+                
             } else {
                 echo "Something went wrong. Please try again later.";
             }
