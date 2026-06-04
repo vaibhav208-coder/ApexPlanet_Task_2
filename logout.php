@@ -1,7 +1,13 @@
 <?php
 session_start();
-$_SESSION = array(); // Wipe state matrices
-session_destroy();   // Teardown token container
-header("location: login.php"); // Bounce out to portal gate
+
+// Unset all session variables
+$_SESSION = array();
+
+// Destroy the session completely
+session_destroy();
+
+// Redirect to login page
+header("location: login.php");
 exit;
 ?>

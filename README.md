@@ -1,33 +1,48 @@
 # 🗄️ ApexPlanet Web Development Workspace — Task 2
+# Full-Stack CRUD Application (PHP & MySQL)
 
-A secure, enterprise-grade **Full-Stack CRUD Application** featuring robust multi-user authentication, password encryption pipelines, and relational database integrations. This project fulfills the milestone deliverables for **Task 2** of the Web Development Internship at ApexPlanet Software Pvt Ltd.
+This is a secure Full-Stack CRUD (Create, Read, Update, Delete) application built as part of Task 2 for my Web Development Internship at ApexPlanet. 
 
----
+The project includes a complete user authentication system and allows logged-in users to manage text posts on a personalized dashboard.
 
-## 🚀 Application Overview & Features
+## 🚀 Features
+* **User Authentication:** Registration, Login, and Logout functionality.
+* **Password Security:** Passwords are encrypted using PHP's native `password_hash()`.
+* **Forgot Password:** Users can reset their password securely if forgotten.
+* **CRUD Operations:** Authenticated users can create, read, edit, and delete posts.
+* **Security First:** Uses PDO (PHP Data Objects) with prepared statements to prevent SQL Injection attacks.
+* **UI/UX:** Clean, responsive dark-mode interface styled entirely with Tailwind CSS.
 
-This system transitions from an isolated runtime configuration into a fully dynamic web platform. It establishes a secure session lifecycle, allowing authenticated users to manage data records seamlessly on a dark glassmorphic dashboard.
+## 💻 Technologies Used
+* **Frontend:** HTML5, Tailwind CSS
+* **Backend:** PHP 8.x
+* **Database:** MySQL
+* **Environment:** Apache (WampServer)
 
-### 🔒 Core Capabilities
-* **Secure Authentication Engine:** User registration and login interfaces equipped with state validation rules and route protection guard clauses.
-* **Cryptographic Password Hashing:** Leverages native PHP `password_hash()` algorithms utilizing random cryptographic salts to prevent raw-text exposure in the database.
-* **Self-Service Account Recovery:** An integrated **Forgot Password** gate that authenticates username ownership before safely overriding target security keys.
-* **Complete CRUD Pipeline:** Full implementation of data cycles: **Create** (record validation forms), **Read** (tabular data grids), **Update** (pre-populated modification states), and **Delete** (safe row entity drops with verification alerts).
-* **Modern Workspace UI:** Uniformly styled with responsive glassmorphism modules powered by a CDN Tailwind CSS layer and high-fidelity FontAwesome iconography.
+## ⚙️ How to Run Locally
 
----
+1. **Clone the repository:**
+   Place this folder inside your local server directory (e.g., `C:\wamp64\www\ApexPlanet_Task_2`).
 
-## 🛠️ Technology Stack & Architecture Layering
+2. **Set up the Database:**
+   * Open phpMyAdmin (`http://localhost/phpmyadmin`).
+   * Create a database named `blog`.
+   * Run the following SQL commands to create the required tables:
 
-| Layer | Component | Functional Domain |
-| :--- | :--- | :--- |
-| **Local Hosting Stack** | WampServer Engine | Provisions local Apache servers and MySQL instances |
-| **Backend Processing** | PHP 8.3+ | Handles state variables, prepared statements, and data routing |
-| **Database Architecture**| MySQL / InnoDB | Manages data persistence across relational tables |
-| **Security Pipeline** | PDO (PHP Data Objects) | Protects application from SQL Injection vulnerabilities |
-| **UI Framework** | HTML5 / Tailwind CSS | Renders responsive layouts and dark design system aesthetics |
+```sql
+   CREATE TABLE users (
+       id INT AUTO_INCREMENT PRIMARY KEY,
+       username VARCHAR(50) NOT NULL UNIQUE,
+       password VARCHAR(255) NOT NULL,
+       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+   );
 
----
+   CREATE TABLE posts (
+       id INT AUTO_INCREMENT PRIMARY KEY,
+       title VARCHAR(255) NOT NULL,
+       content TEXT NOT NULL,
+       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+   );
 
 ## 📂 Modular File Architecture
 ```bash
